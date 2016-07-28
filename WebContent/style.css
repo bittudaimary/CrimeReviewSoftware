@@ -1,0 +1,164 @@
+/**
+ * CSSReset.com - How To Keep Footer At Bottom of Page with CSS
+ * 
+ * Original Tutorial: http://www.cssreset.com/2010/css-tutorials/how-to-keep-footer-at-bottom-of-page-with-css/
+ * License: Free - do whatever you like with it! Credit and linkbacks much appreciated.
+ *
+ * NB: Make sure the value for 'padding-bottom' on #content is equal to or greater than the height of #footer.
+ */
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+	font-family: "Calibri(Body)";
+    font-size: 100%;
+    background-color: #CCC;
+ }
+#container {
+	min-height:100%;
+	position:relative;
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+}
+#header {
+	background:#ededed;
+	padding: 0px;
+	background-position: center;
+}
+
+#logo {
+	width: 100%;
+    height: 100px;
+    left: 0%;
+    clear: both;
+	background-repeat: no-repeat;
+    background-position: center;
+}
+
+nav ul ul {
+	display: none;
+}
+
+nav ul li:hover > ul {
+	display: block;
+}
+
+nav ul {
+	background: #efefef; 
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+	padding: 0 0;
+	border-radius: 0px;  
+	list-style: none;
+	position: relative;
+	display: flex;
+}
+
+nav ul:after {
+	content: ""; clear: both; display: block;
+}
+
+nav ul li {
+	float: left;
+}
+
+nav ul li:hover {
+	background: #4b545f;
+	background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
+	background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
+	background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
+}
+
+nav ul li:hover a {
+	color: #fff;
+}
+	
+nav ul li a {
+	display: block; padding: 25px 40px;
+	width:160px;
+	color: #757575; text-decoration: none;
+	text-align: center;
+}
+
+nav ul ul {
+	background: #5f6975; border-radius: 0px; padding: 0;
+	position: absolute; top: 100%;
+}
+
+nav ul ul li {
+	float: none; 
+	border-top: 1px solid #6b727c;
+	border-bottom: 1px solid #575f6a;
+	position: relative;
+}
+
+nav ul ul li a {
+	padding: 15px 40px;
+	color: #fff;
+}	
+
+nav ul ul li a:hover {
+	background: #4b545f;
+}
+
+nav ul ul ul {
+	position: absolute; left: 100%; top:0;
+}
+
+#mainTable
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 15px;
+	margin: 45px 250px;
+	width: 1000px;
+	text-align: left;
+	border-collapse: collapse;
+	
+}
+
+table, th, td {
+	border: 1px solid black;	
+}
+
+#mainTable th
+{
+	font-size: 14px;
+	font-weight: bold;
+	padding: 12px 15px;
+	color: #039
+}
+#mainTable td
+{
+	padding: 10px 15px;
+	color: #669;
+}
+
+#mainTable tr:hover td
+{
+	color: #339;
+	background: #eff2ff;
+}
+
+#mainDiv {
+	padding-bottom:100px; /* Height of the footer element */
+}
+
+#footer {
+	background:#ffab62;
+	width:100%;
+	height:30px;
+	position:absolute;
+	bottom:0;
+	left:0;
+	background-color: black;
+	color:white;
+	opacity:0.6;
+	filter:Alpha(opacity=60);
+	text-align: center;
+	 vertical-align: middle;
+	
+}
