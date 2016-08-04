@@ -260,6 +260,32 @@ public class PoliceOfficerQueries {
 		return list_police_officer;
 	}
 	
+	public List<PoliceOfficer> getAllPoliceOfficers(){
+		List<PoliceOfficer> listOfPoliceOfficers = new ArrayList<PoliceOfficer>();
+		PoliceOfficer policeOfficer = null;
+		try {
+			String query = "select * from police_officer";
+			prestatement = connection.prepareStatement(query);
+			resultset = prestatement.executeQuery();
+			while(resultset.next()) {
+				policeOfficer = new PoliceOfficer();
+				policeOfficer.setId(resultset.getInt("id"));
+				policeOfficer.setFname(resultset.getString("fname"));
+				policeOfficer.setMname(resultset.getString("mname"));
+				policeOfficer.setLname(resultset.getString("lname"));
+				policeOfficer.setPosting(resultset.getString("posting"));
+				policeOfficer.setDob(resultset.getString("dob"));
+				policeOfficer.setContact(resultset.getString("contact"));
+				listOfPoliceOfficers.add(policeOfficer);
+			}
+			prestatement.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+		return listOfPoliceOfficers;
+	}
+	
 	//CLOSE CONNECTION
 	public void close(){
 		try {

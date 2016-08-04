@@ -36,7 +36,7 @@ $(document).ready(function() {
             	<li id="home"><a href="#">HOME</a></li>
 				<li><a href="#">FIR</a>
 					<ul>
-						<li><a href="addFir.html" >ADD FIR</a></li>
+						<li><a href="addFIR.jsp" >ADD FIR</a></li>
 						<li><a href="contact.html" >EDIT FIR</a></li>
 						<li><a href="contact.html" >RE-ENDORSE FIR</a></li>
 						<li><a href="contact.html" >DISPOSE FIR</a></li>
@@ -53,7 +53,7 @@ $(document).ready(function() {
 		</div><!-- #content -->
 		
 		<div id="footer">
-		Copyright © 2016 Bittu & Mahesh Company
+		Copyright (C) 2016 Bittu & Mahesh 
 		</div><!-- #footer -->
 		
 	</div><!-- #container -->
