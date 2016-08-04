@@ -53,7 +53,7 @@ $(document).ready(function() {
 		</div><!-- #content -->
 		
 		<div id="footer">
-		Copyright © 2016 Bittu & Mahesh Co.
+		Copyright © 2016 Bittu & Mahesh Company
 		</div><!-- #footer -->
 		
 	</div><!-- #container -->
