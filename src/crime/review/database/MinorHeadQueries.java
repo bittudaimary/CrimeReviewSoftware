@@ -1,7 +1,6 @@
 package crime.review.database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -11,16 +10,11 @@ public class MinorHeadQueries {
 	private Connection connection;
 	private PreparedStatement prestatement;
 	private ResultSet resultset;
+	private DbaseConnection dbconnect;
 	
 	public MinorHeadQueries() {
-		try{
-			// Load MS access driver class
-			Class.forName("org.postgresql.Driver");
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/crime_database", "postgres","123456");
-		}catch (Exception e){
-			System.err.println("Got an exception! ");
-			System.err.println(e.getMessage());
-		}
+		dbconnect = new DbaseConnection();
+		connection = dbconnect.getConnection();
 	}
 	
 	//ADD DISTRICT
@@ -121,11 +115,6 @@ public class MinorHeadQueries {
 	
 	//CLOSE CONNECTION
 	public void close(){
-		try {
-			connection.close();
-		} catch (Exception e) {
-			System.err.println("Got an exception! ");
-			System.err.println(e.getMessage());
-		}
+		dbconnect.close();
 	}
 }
