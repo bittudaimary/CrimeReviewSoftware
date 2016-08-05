@@ -51,8 +51,8 @@ public class PoliceStationServlet extends HttpServlet {
 			count = firq.get_count_of_pending_fir_from_ps(ps.getId());
 			firq.close();
 			out.println(String.valueOf("<tr class='ps'><td>"));
-			out.println(String.valueOf(ps.getId()));
-			out.println(String.valueOf("</td>	<td><a href='#' id='"));
+			out.println(String.valueOf(i+1));
+			out.println(String.valueOf("</td><td><a href='#' id='"));
 			out.println(String.valueOf(ps.getId() + "'>")); 
 			out.println(String.valueOf(ps.getName()));
 			out.println(String.valueOf("</a></td><td>"));

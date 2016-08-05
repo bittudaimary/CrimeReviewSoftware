@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import crime.review.database.FIR;
 import crime.review.database.FIRQueries;
+import crime.review.database.PoliceOfficer;
+import crime.review.database.PoliceOfficerQueries;
 import crime.review.database.PoliceStation;
 import crime.review.database.PoliceStationQueries;
 
@@ -32,29 +34,38 @@ public class PendingFir extends HttpServlet {
 
 	//RETURNS ALL THE PENDING FIR WITH RESPECT TO POLICE STATION
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int count = 0;
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+	
 		FIRQueries firq = new FIRQueries();
 		List<FIR> list_fir = firq.getPendingFIROfPoliceStation(Integer.parseInt(request.getParameter("ps_id")));
 		firq.close();
-		out.println("<div id='mainDiv'><table id='mainTable'> " +
-				"<h1>Pending Cases of " + request.getParameter("ps_name") + "</h1>" +
-				"<thead><tr><td><h1>Sl. No</h1></td>" +
-				"<td><h1>Case No.</h1></td><td><h1>Section of Law</h1>" +
-				"</td></tr></thead><tbody>");
+		
+		//creating the header
+		String tblHead = "<div id='mainDiv'><table id='mainTable'> " +
+								"<h3>Pending Cases of " + request.getParameter("ps_name") + "</h3>" +
+									"<thead><tr><td><h3>Sl. No</h3></td>" +
+										"<td><h3>Case No.</h3></td><td><h3>Section of Law</h3>" +
+											"</td><td><h3>Investigating Officer</h3></td></tr></thead><tbody>";
+		
+		//creating the rows
+		String tblRows = "";
+		PoliceOfficerQueries psq = new PoliceOfficerQueries();
+		
 		for(int i = 0 ; i < list_fir.size() ; i++) {
 			FIR fir = list_fir.get(i);
-			out.println(String.valueOf("<tr class='ps'><td>"));
-			out.println(String.valueOf(fir.getFir_id()));
-			out.println(String.valueOf("</td>	<td><a href='#' id='"));
-			out.println(String.valueOf(fir.getFir_id() + "'>")); 
-			out.println(String.valueOf(fir.getCase_no()));
-			out.println(String.valueOf("</a></td><td>"));
-			out.println(String.valueOf(fir.getSection_of_law()));
-			out.println(String.valueOf("</td></tr>"));
+			tblRows += "<tr class='ps'><td>"+ (i+1)+"</td>";
+			tblRows += "<td>" + fir.getCase_no()+ "</td>";
+			tblRows += "<td> U/S " + fir.getSection_of_law() + "</td>";			
+			PoliceOfficer po = psq.getPoliceOfficer_from_id(fir.getPolice_officer_id());
+			tblRows += "<td>" + po.getFname() + " " + po.getLname() + "</td></tr>";
 		}
-		out.println("</tbody></table></div>");
+		
+		psq.close();
+				
+		//creating the complete table containing pending FIRs of Police Stations
+		String tablePS = tblHead + tblRows +"</tbody></table></div>";
+		
+		response.setContentType("text/html");
+		response.getWriter().println(tablePS);
 		
 	}
 

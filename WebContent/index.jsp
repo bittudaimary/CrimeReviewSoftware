@@ -33,7 +33,7 @@ $(document).ready(function() {
 		</div>
 		<nav>
 			<ul>
-            	<li id="home"><a href="#">HOME</a></li>
+            	<li id="home"><a href="index.jsp">HOME</a></li>
 				<li><a href="#">FIR</a>
 					<ul>
 						<li><a href="addFIR.jsp" >ADD FIR</a></li>
