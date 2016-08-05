@@ -43,7 +43,7 @@ $(document).ready(function() {
 					</ul>
 				</li>
 				
-				<li><a href="crimereview.html" >CRIME REVIEW</a></li>
+				<li><a href="crimeReview.jsp" >CRIME REVIEW</a></li>
 				<li><a href="reports.html" >REPORTS</a></li>
 			</ul>
 		</nav>		
