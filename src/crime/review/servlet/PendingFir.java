@@ -1,7 +1,6 @@
 package crime.review.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,8 +13,6 @@ import crime.review.database.FIR;
 import crime.review.database.FIRQueries;
 import crime.review.database.PoliceOfficer;
 import crime.review.database.PoliceOfficerQueries;
-import crime.review.database.PoliceStation;
-import crime.review.database.PoliceStationQueries;
 
 /**
  * Servlet implementation class PendingFir
