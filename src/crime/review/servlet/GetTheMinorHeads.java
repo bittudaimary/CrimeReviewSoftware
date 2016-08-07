@@ -36,7 +36,7 @@ public class GetTheMinorHeads extends HttpServlet {
 		List<MinorHead> listOfMinorHeads = mhq.getAllMinorHead();
 				
 		
-		String mhOptions = "<select id='minorHead' name='minorHead'><option>Please select a Minor Head</option>";
+		String mhOptions = "<select id='minorHead' name='minorHead' required><option value=''>Please select a Minor Head</option>";
 			
 		for(int i = 0 ; i < listOfMinorHeads.size(); i++) {
 			MinorHead mh = listOfMinorHeads.get(i);

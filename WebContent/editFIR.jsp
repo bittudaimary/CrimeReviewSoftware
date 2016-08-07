@@ -24,37 +24,18 @@
 				$policeStationId = $(this).val();
 				$("#caseNosDiv").load('GetTheCaseNos','policeStationId=' + $policeStationId );
 		});
-		
-		//Submit the data to the AddFIR servlet
-		$("#disposeFormDiv").submit(function(e) {
-			$("#disposeForm").validate();
-			
-			var postData = $("#disposeForm").serializeArray();
-			//alert (dataString);return false;
-			$.ajax({
-			    type: "POST",
-			    url: "DisposeFIR",
-			    data: postData,
-			    success:function(html) 
-	            {
-			    	$("#addFormMessage").text("Dispose Successfull");
-			    	$("#result").show().delay(2000).fadeOut(function(){
-			    		$("#disposeForm").trigger("reset");	
-			    	});
-	            },
-	            error: function(html) 
-	            {
-	            	$("#addFormMessage").text("Dispose Failed");
-			    	$("#result").show().delay(2000).fadeOut(function(){
-			    		$("#disposeForm").trigger("reset");	
-			    	});
-	            }
-			 });
-			 e.preventDefault();
+		$("#editFormSubmit").click(function(e){
+			if($("#editForm").valid()){
+				e.preventDefault();
+				$policeStationId = $("#policeStation").val();
+				$caseNo = $("#caseNo").val();
+				window.location.href="EditFIRForm?policeStationId=" + $policeStationId + "&caseNo="+ $caseNo;
+			}
 		});
 		
 		$("#btnReset").click(function() {
-			$("#disposeForm").trigger("reset");
+			$("#editForm").trigger("reset");
+			$("#districts").focus();
 		});
 	});
 	
@@ -87,8 +68,8 @@
 		</div><!-- #header -->
 		
 		<div id="mainDiv">
-		<div id="disposeFormDiv">
-			<form action="" id="disposeForm" method="post">
+		<div id="editFormDiv">
+			<form action="" id="editForm" method="post">
     			<table id ="mainTable">
 				<tr>
 					<td> District:</td>
@@ -104,12 +85,8 @@
 				</tr>
 				<tr>
 					<td><input type="reset" id="btnReset" value="RESET" /></td>
-					<td><input type="submit" id="disposeFormSubmit" value="DISPOSE FIR" /></td>	
+					<td><input type="submit" id="editFormSubmit" value="GET FIR" /></td>	
 				</tr>						
-				<tr id="result">
-					<td> Result</td>
-					<td>  <div id="addFormMessage"></div></td>
-				</tr>
 			</table>
 			</form>
 			</div>

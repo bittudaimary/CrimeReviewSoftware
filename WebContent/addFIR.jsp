@@ -10,6 +10,9 @@
 <script type = "text/javascript" src = "jquery.validate.min.js"></script>
 <script type = "text/javascript">
 	$(document).ready(function() {
+		//HIDE THE RESULT
+		$("#result").hide();
+		
 		//Load the districts drop down list
 		$("#districtsDiv").load('GetTheDistricts');
 		
@@ -29,14 +32,13 @@
 		//Load the police stations on the selection of a district in the change event of the dropdownlist
 		$("#districtsDiv").on("change","#districts", function(e){
 				$districtId = $(this).val();
-				alert($districtId);
 		    	$("#policeStationsDiv").load('GetThePoliceStations','districtId=' + $districtId );
 		});
 		
 		
 		
 		//Submit the data to the AddFIR servlet
-		$("#addFormDiv").submit(function() {
+		$("#addFormDiv").submit(function(e) {
 			$("#addForm").validate();
 			
 			var postData = $("#addForm").serializeArray();
@@ -47,12 +49,19 @@
 			    data: postData,
 			    success:function(html) 
 	            {
-			    	alert(html);
-	                $("#addFormMessage").html(html);
+			    	$("#addFormMessage").text("FIR Added Successfully");
+			    	$("#result").show().delay(2000).fadeOut(function(){
+			    		$("#addForm").trigger("reset");	
+			    		$("#districts").focus();
+			    	});
 	            },
 	            error: function(html) 
 	            {
-	                $("#addFormMessage").html(html);
+	            	$("#addFormMessage").text("FIR Add Failed");
+	            	$("#result").show().delay(2000).fadeOut(function(){
+			    		$("#addForm").trigger("reset");	
+			    		$("#districts").focus();
+			    	});	
 	            }
 			 });
 			 e.preventDefault();
@@ -60,6 +69,7 @@
 		
 		$("#btnReset").click(function() {
 			$("#addForm").trigger("reset");
+			$("#districts").focus();
 		});
 	});
 	
@@ -153,10 +163,12 @@
 							<td><input type="submit" id="addFormSubmit" value="ADD FIR" /></td>
 							
 						</tr>						
-						
+						<tr id="result">
+							<td> Result</td>
+							<td>  <div id="addFormMessage"></div></td>
+						</tr>
 				 </table>
 			</form>
-			 <div id="addFormMessage"></div>
 			</div>
 
 		</div><!-- #content -->

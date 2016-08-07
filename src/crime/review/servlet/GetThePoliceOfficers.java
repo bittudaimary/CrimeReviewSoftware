@@ -36,7 +36,7 @@ public class GetThePoliceOfficers extends HttpServlet {
 		List<PoliceOfficer> listOfPoliceOfficers = poq.getAllPoliceOfficers();
 				
 		
-		String polOffOptions = "<select id='policeOfficers' name='policeOfficer'><option>Please select a Investigating Officer</option>";
+		String polOffOptions = "<select id='policeOfficers' name='policeOfficer' required><option value=''>Please select a Investigating Officer</option>";
 			
 		for(int i = 0 ; i < listOfPoliceOfficers.size(); i++) {
 			PoliceOfficer po = listOfPoliceOfficers.get(i);

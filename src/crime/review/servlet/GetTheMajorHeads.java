@@ -38,7 +38,7 @@ public class GetTheMajorHeads extends HttpServlet {
 		List<MajorHead> listOfMajorHeads = mhq.getAllMajorHead();
 				
 		
-		String mhOptions = "<select id='majorHead' name='majorHead'><option>Please select a Major Head</option>";
+		String mhOptions = "<select id='majorHead' name='majorHead' required><option value=''>Please select a Major Head</option>";
 			
 		for(int i = 0 ; i < listOfMajorHeads.size(); i++) {
 			MajorHead mh = listOfMajorHeads.get(i);

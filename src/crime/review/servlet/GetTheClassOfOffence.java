@@ -35,7 +35,7 @@ public class GetTheClassOfOffence extends HttpServlet {
 		ClassofOffenceQueries cq = new ClassofOffenceQueries();
 		List<ClassofOffence> listOfClassOfOffences = cq.getAllClassofOffence();
 		
-		String classOfOffenceOptions = "<select id='classOfOffences' name='classOfOffence'><option>Please select a Classification</option>";
+		String classOfOffenceOptions = "<select id='classOfOffences' name='classOfOffence' required><option value=''>Please select a Classification</option>";
 			
 		for(int i = 0 ; i < listOfClassOfOffences.size(); i++) {
 			ClassofOffence cof = listOfClassOfOffences.get(i);

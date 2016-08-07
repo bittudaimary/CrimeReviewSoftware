@@ -45,13 +45,15 @@
 			    	$("#addFormMessage").text("Dispose Successfull");
 			    	$("#result").show().delay(2000).fadeOut(function(){
 			    		$("#disposeForm").trigger("reset");	
+			    		$("#districts").focus();
 			    	});
 	            },
 	            error: function(html) 
 	            {
 	            	$("#addFormMessage").text("Dispose Failed");
 			    	$("#result").show().delay(2000).fadeOut(function(){
-			    		$("#disposeForm").trigger("reset");	
+			    		$("#disposeForm").trigger("reset");
+			    		$("#districts").focus();
 			    	});
 	            }
 			 });
@@ -60,6 +62,7 @@
 		
 		$("#btnReset").click(function() {
 			$("#disposeForm").trigger("reset");
+			$("#districts").focus();
 		});
 	});
 	
@@ -115,7 +118,7 @@
 						<tr>
 							<td> Type of Final Form </td>
 							<td><input type="radio" name="finalForm" value="true" checked="checked"/>Charge-Sheet
-								<input type="radio" name="finalForm" value="false"/>Not Charge-Sheet
+								<input type="radio" name="finalForm" value="false"/>Final Report
 							</td>
 						</tr>
 						<tr>
