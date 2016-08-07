@@ -10,33 +10,25 @@
 <script type = "text/javascript" src = "jquery.validate.min.js"></script>
 <script type = "text/javascript">
 	$(document).ready(function() {
-		//Load the districts drop down list
+		//Load the district
 		$("#districtsDiv").load('GetTheDistricts');
-		
-		//Load the Major Heads 
-		$("#majorHeadsDiv").load('GetTheMajorHeads');
-		
-		//Load the Minor Heads
-		$("#minorHeadsDiv").load('GetTheMinorHeads');
-		
-		//Load the Police Officers
-		$("#policeOfficersDiv").load('GetThePoliceOfficers');
-		
-		//Load the classifications of Offence
-		$("#classOfOffenceDiv").load('GetTheClassOfOffence');
-		
 		
 		//Load the police stations on the selection of a district in the change event of the dropdownlist
 		$("#districtsDiv").on("change","#districts", function(e){
-				alert("Hello");
 				$districtId = $(this).val();
 		    	$("#policeStationsDiv").load('GetThePoliceStations','districtId=' + $districtId );
 		});
 		
+		//Load the case nos on the selection of a police station in the change of the dropdownlist 
+		$("#policeStationsDiv").on("change","#policeStation", function(e){
+				$policeStationId = $(this).val();
+				$("#caseNosDiv").load('GetTheCaseNos','policeStationId=' + $policeStationId );
+		});
 		
-		$("#policeStaionsDiv").on("change","#policeStation", function(e){
-	    	 alert("you selected something");
-		});	
+		//Load the case nos on the selection of a police station in the change of the dropdownlist 
+		$("#caseNosDiv").on("change","#caseNo", function(e){
+			window.location.href = "editFIRForm.jsp?policeStationId=" + $policeStationId + "&caseNo=" + $(this).val();	
+		});
 	});
 	
 </script>
@@ -68,12 +60,14 @@
 		</div><!-- #header -->
 		
 		<div id="mainDiv">
-			<div id="crimeReview">
-				Please select a district<div id="districtsDiv"><select name='district'><option>Please select a District<option></option></select></div>
-				<br>
-				Please select a police station<div id="policeStationsDiv"><select><option>Please select a PS<option></select></div>
-				<div id="crimeReviewDiv"></div>
+			<div id="editFIR">
+				Please select a district<div id="districtsDiv"><select><option>Please select a District</option></select></div>
+			<br>
+				Please select a police station<div id="policeStationsDiv"><select><option>Please select a PS</option></select></div>
+			<br>
+				Please select a Case No<div id="caseNosDiv"><select><option>Please select a Case No.</option></select></div>
 			</div>
+			<div id="editFormDiv"></div>
 		</div><!-- #content -->
 		
 		<div id="footer">

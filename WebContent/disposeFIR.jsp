@@ -10,56 +10,56 @@
 <script type = "text/javascript" src = "jquery.validate.min.js"></script>
 <script type = "text/javascript">
 	$(document).ready(function() {
+		//HIDE THE RESULT
+		$("#result").hide();
+		
 		//Load the districts drop down list
 		$("#districtsDiv").load('GetTheDistricts');
-		
-		//Load the Major Heads 
-		$("#majorHeadsDiv").load('GetTheMajorHeads');
-		
-		//Load the Minor Heads
-		$("#minorHeadsDiv").load('GetTheMinorHeads');
-		
-		//Load the Police Officers
-		$("#policeOfficersDiv").load('GetThePoliceOfficers');
-		
-		//Load the classifications of Offence
-		$("#classOfOffenceDiv").load('GetTheClassOfOffence');
-		
 		
 		//Load the police stations on the selection of a district in the change event of the dropdownlist
 		$("#districtsDiv").on("change","#districts", function(e){
 				$districtId = $(this).val();
-				alert($districtId);
 		    	$("#policeStationsDiv").load('GetThePoliceStations','districtId=' + $districtId );
+		});
+		
+		//Load the case nos on the selection of a police station in the change of the dropdownlist 
+		$("#policeStationsDiv").on("change","#policeStation", function(e){
+				$policeStationId = $(this).val();
+				$("#caseNosDiv").load('GetTheCaseNos','policeStationId=' + $policeStationId );
 		});
 		
 		
 		
 		//Submit the data to the AddFIR servlet
-		$("#addFormDiv").submit(function() {
-			$("#addForm").validate();
+		$("#disposeFormDiv").submit(function(e) {
+			$("#disposeForm").validate();
 			
-			var postData = $("#addForm").serializeArray();
+			var postData = $("#disposeForm").serializeArray();
 			//alert (dataString);return false;
 			$.ajax({
 			    type: "POST",
-			    url: "AddFIR",
+			    url: "DisposeFIR",
 			    data: postData,
 			    success:function(html) 
 	            {
-			    	alert(html);
-	                $("#addFormMessage").html(html);
+			    	$("#addFormMessage").text("Dispose Successfull");
+			    	$("#result").show().delay(2000).fadeOut(function(){
+			    		$("#disposeForm").trigger("reset");	
+			    	});
 	            },
 	            error: function(html) 
 	            {
-	                $("#addFormMessage").html(html);
+	            	$("#addFormMessage").text("Dispose Failed");
+			    	$("#result").show().delay(2000).fadeOut(function(){
+			    		$("#disposeForm").trigger("reset");	
+			    	});
 	            }
 			 });
 			 e.preventDefault();
 		});
 		
 		$("#btnReset").click(function() {
-			$("#addForm").trigger("reset");
+			$("#disposeForm").trigger("reset");
 		});
 	});
 	
@@ -92,12 +92,12 @@
 		</div><!-- #header -->
 		
 		<div id="mainDiv">
-		<div id="addFormDiv">
-			<form action="" id="addForm" method="post">
+		<div id="disposeFormDiv">
+			<form action="" id="disposeForm" method="post">
     				 	<table id ="mainTable">
 						<tr>
 							<td> District:</td>
-							<td> <div id="districtsDiv"><select name='district'><option>Please select a District<option></div></td>
+							<td> <div id="districtsDiv"><select name='district'><option>Please select a District<option></select></div></td>
 						</tr>
 						<tr>
 							<td> Police Station:</td>
@@ -106,57 +106,28 @@
 
 						<tr>
 							<td> FIR No:</td>
-							<td><input type="text" name="firNo" placeholder="eg. 12(03)15" required/></td>
+							<td><div id="caseNosDiv"><select><option>Please select a Case No.</option></select></div></td>
 						</tr>
 						<tr>
-							<td> Section of Law:</td>
-							<td><textarea name="sectionOfLaw" placeholder="eg. 302/34 IPC" required  cols="60" rows="3"/></textarea></td>
+							<td> Date of Dispose</td>
+							<td><input type="date" name="dateOfDispose" required/></td>
 						</tr>
 						<tr>
-							<td> Date of Registration:</td>
-							<td><input type="date" name="dateOfRegistration" required/></td>
-						</tr>
-						<tr>
-							<td> Date of Occurence:</td>
-							<td><input type="date" name="dateOfOccurence" required/></td>
-						</tr>
-						<tr>
-							<td> Place of Occurence:</td>
-							<td><input type="text" name="placeOfOccurence" placeholder="eg. Tura Bazaar" required/></td>
-						</tr>
-						<tr>
-							<td> Investigating Officer: </td>
-							<td> <div id="policeOfficersDiv"><select name='policeOfficer'><option>Please select a I/O</option></select></div></td>
-						</tr>
-						
-						<tr>
-							<td> SR or NON-SR: </td>
-							<td><input type="radio" name="srOrNonSR" value="false" checked="checked"/>Non_SR 
-								<input type="radio" name="srOrNonSR" value="true"/>SR
+							<td> Type of Final Form </td>
+							<td><input type="radio" name="finalForm" value="true" checked="checked"/>Charge-Sheet
+								<input type="radio" name="finalForm" value="false"/>Not Charge-Sheet
 							</td>
-						</tr>
-						
-						<tr>
-							<td> Major Head:</td>
-							<td> <div id="majorHeadsDiv"><select name='majorHead'><option>Please select a Major Head</option></select></div></td>
-						</tr>
-						<tr>
-							<td> Minor Head:</td>
-							<td> <div id="minorHeadsDiv"><select name='minorHead'><option>Please select a Minor Head</option></select></div></td>
-						</tr>
-						<tr>
-							<td> Classification of Offence:</td>
-							<td> <div id="classOfOffenceDiv"><select name='classOfOffences'><option>Please select a Classification</option></select></div></td>
 						</tr>
 						<tr>
 							<td><input type="reset" id="btnReset" value="RESET" /></td>
-							<td><input type="submit" id="addFormSubmit" value="ADD FIR" /></td>
-							
+							<td><input type="submit" id="disposeFormSubmit" value="DISPOSE FIR" /></td>	
 						</tr>						
-						
+						<tr id="result">
+							<td> Result</td>
+							<td>  <div id="addFormMessage"></div></td>
+						</tr>
 				 </table>
 			</form>
-			 <div id="addFormMessage"></div>
 			</div>
 
 		</div><!-- #content -->

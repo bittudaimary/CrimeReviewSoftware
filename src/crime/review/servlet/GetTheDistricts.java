@@ -34,7 +34,7 @@ public class GetTheDistricts extends HttpServlet {
 		DistrictQueries dq = new DistrictQueries();
 		List<District> listOfAllDistricts = dq.getAllDistrict();
 		
-		String districtOptions = "<select id='districts' name='district'><option>Please select a district</option>";
+		String districtOptions = "<select id='districts' name='district' required><option value=''>Please select a District</option>";
 			
 		for(int i = 0 ; i < listOfAllDistricts.size(); i++) {
 			District d = listOfAllDistricts.get(i);

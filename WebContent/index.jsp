@@ -37,9 +37,9 @@ $(document).ready(function() {
 				<li><a href="#">FIR</a>
 					<ul>
 						<li><a href="addFIR.jsp" >ADD FIR</a></li>
-						<li><a href="contact.html" >EDIT FIR</a></li>
+						<li><a href="editFIR.jsp" >EDIT FIR</a></li>
 						<li><a href="contact.html" >RE-ENDORSE FIR</a></li>
-						<li><a href="contact.html" >DISPOSE FIR</a></li>
+						<li><a href="disposeFIR.jsp" >DISPOSE FIR</a></li>
 					</ul>
 				</li>
 				

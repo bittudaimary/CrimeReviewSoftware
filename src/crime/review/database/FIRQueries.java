@@ -598,8 +598,82 @@ public class FIRQueries {
 		return list_fir;
 	}
 	
+	public List<String> getCaseNosofPoliceStation(int policeStationId) {
+		List<String> listCaseNos = new ArrayList<String>();
+		try {
+			String query = "select case_no from fir where fir_id not in (select dispose.fir_id from dispose) and fir.police_station_id=?";
+			prestatement = connection.prepareStatement(query);
+			prestatement.setInt(1, policeStationId);
+			resultset = prestatement.executeQuery();
+			while (resultset.next()) {
+				listCaseNos.add(resultset.getString("case_no"));
+			}
+			prestatement.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+		return listCaseNos;
+	}
+	
+	//GET FIR FROM PS AND CASE NO
+	public FIR getFIRFromPSAndCaseNo(int policeStationId,String caseNo) {
+		FIR newfir = null;
+		try {
+			String query = "select * from fir where police_station_id = ? and case_no = ?";
+			prestatement = connection.prepareStatement(query);
+			prestatement.setInt(1, policeStationId);
+			prestatement.setString(2, caseNo);
+			resultset = prestatement.executeQuery();
+			if (resultset.next()) {
+				newfir = new FIR();
+				newfir.setFir_id(resultset.getInt("fir_id"));
+				newfir.setCase_no(resultset.getString("case_no"));
+				newfir.setSection_of_law(resultset.getString("section_of_law"));
+				newfir.setDate_of_registration(resultset
+						.getString("date_of_registration"));
+				newfir.setDate_of_occurrence(resultset
+						.getString("date_of_occurence"));
+				newfir.setPolice_officer_id(resultset
+						.getInt("police_officer_id"));
+				newfir.setPolice_station_id(resultset
+						.getInt("police_station_id"));
+				newfir.setPlace_of_occurence(resultset
+						.getString("place_of_occurence"));
+				newfir.setMajor_head_id(resultset.getInt("major_head_id"));
+				newfir.setMinor_head_id(resultset.getInt("minor_head_id"));
+				newfir.setSr_or_nonsr(resultset.getBoolean("sr_or_nonsr"));
+				newfir.setClass_of_offence(resultset.getInt("class_of_offence"));
+			}
+			prestatement.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+		return newfir;
+	}
 	//CLOSE CONNECTION
 	public void close(){
 		dbconnect.close();
+	}
+	
+	//GET FIR FROM PS AND CASE NO
+	public int getFIRIdFromPsAndCaseNo(int policeStationId, String caseNo) {
+		int firId = 0;
+		try {
+			String query = "select fir_id from fir where police_station_id = ? and case_no = ?";
+			prestatement = connection.prepareStatement(query);
+			prestatement.setInt(1, policeStationId);
+			prestatement.setString(2,caseNo);
+			resultset = prestatement.executeQuery();
+			if (resultset.next()) {
+				firId = resultset.getInt("fir_id");
+			}
+			prestatement.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+		return firId;
 	}
 }

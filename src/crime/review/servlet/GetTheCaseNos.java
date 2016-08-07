@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import crime.review.database.PoliceStation;
-import crime.review.database.PoliceStationQueries;
+import crime.review.database.FIRQueries;
 
 /**
- * Servlet implementation class GetThePoliceStations
+ * Servlet implementation class GetTheCaseNos
  */
-@WebServlet("/GetThePoliceStations")
-public class GetThePoliceStations extends HttpServlet {
+@WebServlet("/GetTheCaseNos")
+public class GetTheCaseNos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetThePoliceStations() {
+    public GetTheCaseNos() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +30,22 @@ public class GetThePoliceStations extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		int districtId = Integer.parseInt(request.getParameter("districtId"));
+		int policeStationId = Integer.parseInt(request.getParameter("policeStationId"));
 
-		PoliceStationQueries psq = new PoliceStationQueries();
-		List<PoliceStation> listOfPoliceStations = psq.getPolice_station_from_district_id(districtId);
+		FIRQueries firq = new FIRQueries();
+		List<String> listOfCaseNos = firq.getCaseNosofPoliceStation(policeStationId);
 				
 		
-		String psOptions = "<select id='policeStation' name='policeStation' required><option value=''>Pls select a police station</option>";
+		String psOptions = "<select id='caseNo' name='caseNo' required><option value=''>Pls select a Case Nos</option>";
 			
-		for(int i = 0 ; i < listOfPoliceStations.size(); i++) {
-			PoliceStation ps = listOfPoliceStations.get(i);
-			psOptions += "<option value='"+ps.getId()+"'>"+ps.getName()+"</option>";
+		for(int i = 0 ; i < listOfCaseNos.size(); i++) {
+			String caseNo = listOfCaseNos.get(i);
+			psOptions += "<option value='"+caseNo+"'>"+caseNo+"</option>";
 		}
 		psOptions+= "</select>";
 		
 		response.setContentType("text/html");
 		response.getWriter().println(psOptions);
-
 	}
 
 	/**
