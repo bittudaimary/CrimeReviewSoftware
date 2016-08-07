@@ -85,10 +85,7 @@
 		
 		<div id="mainDiv">
 			
-				Please select a district<div id="districtsDiv"><select name='district'><option>Please select a District<option></option></select></div>
-				<br>
-				Please select a police station<div id="policeStationsDiv"><select><option>Please select a PS<option></select></div>
-				<div id="crimeReviewDiv"></div>
+			<h1>This page is under construction</h1>
 				
 		</div><!-- #content -->
 		

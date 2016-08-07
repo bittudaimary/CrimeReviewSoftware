@@ -85,7 +85,7 @@
 				</li>
 				
 				<li><a href="crimereview.html" >CRIME REVIEW</a></li>
-				<li><a href="reports.html" >REPORTS</a></li>
+				<li><a href="reports.jsp" >REPORTS</a></li>
 			</ul>
 		</nav>		
 		</div><!-- #header -->
