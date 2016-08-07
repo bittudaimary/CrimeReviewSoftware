@@ -25,9 +25,36 @@
 				$("#caseNosDiv").load('GetTheCaseNos','policeStationId=' + $policeStationId );
 		});
 		
-		//Load the case nos on the selection of a police station in the change of the dropdownlist 
-		$("#caseNosDiv").on("change","#caseNo", function(e){
-			window.location.href = "editFIRForm.jsp?policeStationId=" + $policeStationId + "&caseNo=" + $(this).val();	
+		//Submit the data to the AddFIR servlet
+		$("#disposeFormDiv").submit(function(e) {
+			$("#disposeForm").validate();
+			
+			var postData = $("#disposeForm").serializeArray();
+			//alert (dataString);return false;
+			$.ajax({
+			    type: "POST",
+			    url: "DisposeFIR",
+			    data: postData,
+			    success:function(html) 
+	            {
+			    	$("#addFormMessage").text("Dispose Successfull");
+			    	$("#result").show().delay(2000).fadeOut(function(){
+			    		$("#disposeForm").trigger("reset");	
+			    	});
+	            },
+	            error: function(html) 
+	            {
+	            	$("#addFormMessage").text("Dispose Failed");
+			    	$("#result").show().delay(2000).fadeOut(function(){
+			    		$("#disposeForm").trigger("reset");	
+			    	});
+	            }
+			 });
+			 e.preventDefault();
+		});
+		
+		$("#btnReset").click(function() {
+			$("#disposeForm").trigger("reset");
 		});
 	});
 	
@@ -60,18 +87,35 @@
 		</div><!-- #header -->
 		
 		<div id="mainDiv">
-			<div id="editFIR">
-				Please select a district<div id="districtsDiv"><select><option>Please select a District</option></select></div>
-			<br>
-				Please select a police station<div id="policeStationsDiv"><select><option>Please select a PS</option></select></div>
-			<br>
-				Please select a Case No<div id="caseNosDiv"><select><option>Please select a Case No.</option></select></div>
+		<div id="disposeFormDiv">
+			<form action="" id="disposeForm" method="post">
+    			<table id ="mainTable">
+				<tr>
+					<td> District:</td>
+					<td> <div id="districtsDiv"><select name='district'><option>Please select a District<option></select></div></td>
+				</tr>
+				<tr>
+					<td> Police Station:</td>
+					<td><div id="policeStationsDiv"><select name='policeStation'><option>Please select a PS<option></select></div></td>
+				</tr>
+				<tr>
+					<td> FIR No:</td>
+					<td><div id="caseNosDiv"><select><option>Please select a Case No.</option></select></div></td>
+				</tr>
+				<tr>
+					<td><input type="reset" id="btnReset" value="RESET" /></td>
+					<td><input type="submit" id="disposeFormSubmit" value="DISPOSE FIR" /></td>	
+				</tr>						
+				<tr id="result">
+					<td> Result</td>
+					<td>  <div id="addFormMessage"></div></td>
+				</tr>
+			</table>
+			</form>
 			</div>
-			<div id="editFormDiv"></div>
 		</div><!-- #content -->
-		
 		<div id="footer">
-		Copyright © 2016 Bittu & Mahesh Co.
+		Copyright &copy; 2016 Bittu & Mahesh Co.
 		</div><!-- #footer -->
 		
 	</div><!-- #container -->

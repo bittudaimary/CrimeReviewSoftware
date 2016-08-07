@@ -97,7 +97,7 @@
     				 	<table id ="mainTable">
 						<tr>
 							<td> District:</td>
-							<td> <div id="districtsDiv"><select name='district'><option>Please select a District<option></div></td>
+							<td> <div id="districtsDiv"><select name='district'><option>Please select a District<option></select></div></td>
 						</tr>
 						<tr>
 							<td> Police Station:</td>

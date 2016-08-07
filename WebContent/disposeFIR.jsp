@@ -30,7 +30,7 @@
 		
 		
 		
-		//Submit the data to the AddFIR servlet
+		//Submit the data to the DisposeFIR servlet
 		$("#disposeFormDiv").submit(function(e) {
 			$("#disposeForm").validate();
 			
