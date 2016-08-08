@@ -51,7 +51,6 @@ public class AddFIR extends HttpServlet {
 		 int classOfOffence;
 		 
 		 FIR fir = new FIR();
-		 FIRQueries firQr = new FIRQueries();
 		 Boolean success = false;
 
 		 
@@ -84,9 +83,10 @@ public class AddFIR extends HttpServlet {
 
 		 
 		 //Add the FIR object to the database
-		 
+		 FIRQueries firQr = new FIRQueries();
 		 try{
 			 success = firQr.add(fir);
+			 firQr.close();
 		 }
 		 catch(Exception e)
 		 {

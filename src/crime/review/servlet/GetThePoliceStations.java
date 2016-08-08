@@ -37,7 +37,7 @@ public class GetThePoliceStations extends HttpServlet {
 
 		PoliceStationQueries psq = new PoliceStationQueries();
 		List<PoliceStation> listOfPoliceStations = psq.getPolice_station_from_district_id(districtId);
-				
+		psq.close();
 		
 		String psOptions = "<select id='policeStation' name='policeStation' required><option value=''>Pls select a police station</option>";
 			

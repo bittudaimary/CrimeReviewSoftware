@@ -90,7 +90,7 @@
 					<ul>
 						<li><a href="addFIR.jsp" >ADD FIR</a></li>
 						<li><a href="editFIR.jsp" >EDIT FIR</a></li>
-						<li><a href="contact.html" >RE-ENDORSE FIR</a></li>
+						<li><a href="reEndorse.jsp" >RE-ENDORSE FIR</a></li>
 						<li><a href="disposeFIR.jsp" >DISPOSE FIR</a></li>
 					</ul>
 				</li>
@@ -174,7 +174,7 @@
 		</div><!-- #content -->
 		
 		<div id="footer">
-		Copyright © 2016 Bittu & Mahesh Co.
+		Copyright &copy; 2016 Bittu & Mahesh Co.
 		</div><!-- #footer -->
 		
 	</div><!-- #container -->

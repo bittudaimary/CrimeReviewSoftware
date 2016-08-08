@@ -33,6 +33,7 @@ public class GetTheDistricts extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DistrictQueries dq = new DistrictQueries();
 		List<District> listOfAllDistricts = dq.getAllDistrict();
+		dq.close();
 		
 		String districtOptions = "<select id='districts' name='district' required><option value=''>Please select a District</option>";
 			

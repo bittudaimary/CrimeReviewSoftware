@@ -36,7 +36,7 @@ public class GetTheMajorHeads extends HttpServlet {
 		
 		MajorHeadQueries mhq = new MajorHeadQueries();
 		List<MajorHead> listOfMajorHeads = mhq.getAllMajorHead();
-				
+		mhq.close();	
 		
 		String mhOptions = "<select id='majorHead' name='majorHead' required><option value=''>Please select a Major Head</option>";
 			

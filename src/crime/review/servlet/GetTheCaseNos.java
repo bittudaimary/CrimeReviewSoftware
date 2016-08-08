@@ -34,6 +34,7 @@ public class GetTheCaseNos extends HttpServlet {
 
 		FIRQueries firq = new FIRQueries();
 		List<String> listOfCaseNos = firq.getCaseNosofPoliceStation(policeStationId);
+		firq.close();
 				
 		
 		String psOptions = "<select id='caseNo' name='caseNo' required><option value=''>Pls select a Case Nos</option>";

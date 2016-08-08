@@ -34,7 +34,7 @@ public class GetTheMinorHeads extends HttpServlet {
 
 		MinorHeadQueries mhq = new MinorHeadQueries();
 		List<MinorHead> listOfMinorHeads = mhq.getAllMinorHead();
-				
+		mhq.close();	
 		
 		String mhOptions = "<select id='minorHead' name='minorHead' required><option value=''>Please select a Minor Head</option>";
 			

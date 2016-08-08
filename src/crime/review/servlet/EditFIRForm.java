@@ -9,18 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import crime.review.database.ClassofOffence;
-import crime.review.database.ClassofOffenceQueries;
 import crime.review.database.District;
 import crime.review.database.DistrictQueries;
 import crime.review.database.FIR;
 import crime.review.database.FIRQueries;
-import crime.review.database.MajorHead;
-import crime.review.database.MajorHeadQueries;
-import crime.review.database.MinorHead;
-import crime.review.database.MinorHeadQueries;
-import crime.review.database.PoliceOfficer;
-import crime.review.database.PoliceOfficerQueries;
 import crime.review.database.PoliceStation;
 import crime.review.database.PoliceStationQueries;
 
@@ -61,23 +53,7 @@ public class EditFIRForm extends HttpServlet {
 		FIR editFIR = firq.getFIRFromPSAndCaseNo(policeStationId,caseNo);
 		firq.close();
 		
-		PoliceOfficerQueries poq = new PoliceOfficerQueries();
-		PoliceOfficer po = poq.getPoliceOfficer_from_id(editFIR.getPolice_officer_id());
-		poq.close();
-		
-		MajorHeadQueries majorhq = new MajorHeadQueries();
-		MajorHead majorHead = majorhq.getMajorHead_from_id(editFIR.getMajor_head_id());
-		majorhq.close();
-		
-		MinorHeadQueries minorhq = new MinorHeadQueries();
-		MinorHead minorHead = minorhq.getMinorHead_from_id(editFIR.getMinor_head_id());
-		minorhq.close();
-		
-		ClassofOffenceQueries coq = new ClassofOffenceQueries();
-		ClassofOffence co = coq.getClassofOffence_from_id(editFIR.getClass_of_offence());
-		coq.close();
-		
-		//setting parameter of request
+			//setting parameter of request
 		request.setAttribute("firId", editFIR.getFir_id());;
 		request.setAttribute("districtId", d.getId());
 		request.setAttribute("districtName", d.getName());

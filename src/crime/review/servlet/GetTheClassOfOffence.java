@@ -34,6 +34,7 @@ public class GetTheClassOfOffence extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ClassofOffenceQueries cq = new ClassofOffenceQueries();
 		List<ClassofOffence> listOfClassOfOffences = cq.getAllClassofOffence();
+		cq.close();
 		
 		String classOfOffenceOptions = "<select id='classOfOffences' name='classOfOffence' required><option value=''>Please select a Classification</option>";
 			
