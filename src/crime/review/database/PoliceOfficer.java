@@ -7,7 +7,7 @@ public class PoliceOfficer {
 	private String lname;
 	private String dob;
 	private String contact;
-	private int posting;
+	private int posting_id;
 	private int rank;
 	
 	public PoliceOfficer() {
@@ -63,11 +63,11 @@ public class PoliceOfficer {
 	}
 
 	public int getPosting() {
-		return posting;
+		return posting_id;
 	}
 
-	public void setPosting(int posting) {
-		this.posting = posting;
+	public void setPosting(int posting_id) {
+		this.posting_id = posting_id;
 	}
 
 	public int getRank() {
@@ -76,6 +76,14 @@ public class PoliceOfficer {
 
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+	
+	public int getPostingId(){
+		return posting_id;
+	}
+	
+	public void setPostingId(int ps_id){
+		posting_id = ps_id;
 	}
 	
 }

@@ -42,7 +42,7 @@
 			$("#addForm").validate();
 			
 			var postData = $("#addForm").serializeArray();
-			//alert (dataString);return false;
+			alert (postData);
 			$.ajax({
 			    type: "POST",
 			    url: "AddFIR",
@@ -89,14 +89,20 @@
 				<li><a href="#">FIR</a>
 					<ul>
 						<li><a href="addFIR.jsp" >ADD FIR</a></li>
+<<<<<<< HEAD
 						<li><a href="editFIR.jsp" >EDIT FIR</a></li>
 						<li><a href="reEndorse.jsp" >RE-ENDORSE FIR</a></li>
 						<li><a href="disposeFIR.jsp" >DISPOSE FIR</a></li>
+=======
+						<li><a href="contact.html" >EDIT FIR</a></li>
+						<li><a href="contact.html" >RE-ENDORSE FIR</a></li>
+						<li><a href="contact.html" >DISPOSE FIR</a></li>
+>>>>>>> refs/remotes/origin/connect_database
 					</ul>
 				</li>
 				
 				<li><a href="crimereview.html" >CRIME REVIEW</a></li>
-				<li><a href="reports.html" >REPORTS</a></li>
+				<li><a href="reports.jsp" >REPORTS</a></li>
 			</ul>
 		</nav>		
 		</div><!-- #header -->

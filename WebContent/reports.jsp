@@ -25,14 +25,18 @@
 		//Load the classifications of Offence
 		$("#classOfOffenceDiv").load('GetTheClassOfOffence');
 		
+		
 		//Load the police stations on the selection of a district in the change event of the dropdownlist
 		$("#districtsDiv").on("change","#districts", function(e){
 				$districtId = $(this).val();
 		    	$("#policeStationsDiv").load('GetThePoliceStations','districtId=' + $districtId );
 		});
-				
+		
+		
 		$("#policeStationsDiv").on("change","#policeStation",function(e){
+	    	 
 	    	 $policeStationId = $(this).val();
+	    	 alert("you selected something" + $policeStationId);
 	    	 $("#crimeReviewDiv").load('GetTheCrimeReviewCases','policeStationId=' + $policeStationId );
 		});
 		
@@ -41,44 +45,17 @@
 	       	 $("#crimeReviewDiv").load('GetTheCrimeReviewCases','policeStationId=' + $policeStationId );
 		});
 		
+		 
 		$("#crimeReviewDiv").on("submit",".crimeReviewForm",function(e){
-			var postData = $(this).serializeArray();
-			$.ajax({
-			    type: "POST",
-			    url: "AddCrimeReview",
-			    data: postData,
-			    success:function(html) 
-	            {
-			    	alert(html);
-	            },
-	            error: function(html) 
-	            {
-	            	alert(html);
-	            }
-			 });
+			 $firId = $(this).attr('id');
+	
+			 $spComments = $('#spRemarks').val();
+			 
+			 alert("FIR ID = "+ $firId + "  SP Comments = "+ $spComments);
 			 e.preventDefault();
 		});
-		
-		$("#crimeReviewDiv").on("click",".paginationLinks",function(e){
-			var pageNo = $(this).attr('value');
-			var policeStationId =$(this).attr('id');
-			
-			$.ajax({
-			    type: "GET",
-			    url: "GetPaginatedPendingCases?pageNo="+pageNo+"&policeStationId="+policeStationId,
-			    success:function(html) 
-	            {
-			    	alert(html);
-	            },
-	            error: function(html) 
-	            {
-	            	alert(html);
-	            }
-			 });
-			 e.preventDefault();
-			return false;
-		});
-	});
+});
+	
 </script>
 
 </head>
@@ -94,10 +71,10 @@
             	<li id="home"><a href="index.jsp">HOME</a></li>
 				<li><a href="#">FIR</a>
 					<ul>
-						<li><a href="addFIR.jsp" >ADD FIR</a></li>
-						<li><a href="editFIR.jsp" >EDIT FIR</a></li>
-						<li><a href="reEndorse.jsp" >RE-ENDORSE FIR</a></li>
-						<li><a href="disposeFIR.jsp" >DISPOSE FIR</a></li>
+						<li><a href="addFir.jsp" >ADD FIR</a></li>
+						<li><a href="contact.html" >EDIT FIR</a></li>
+						<li><a href="contact.html" >RE-ENDORSE FIR</a></li>
+						<li><a href="contact.html" >DISPOSE FIR</a></li>
 					</ul>
 				</li>
 				<li><a href="crimeReview.jsp" >CRIME REVIEW</a></li>
@@ -107,23 +84,9 @@
 		</div><!-- #header -->
 		
 		<div id="mainDiv">
-				<center><h2>Crime Review</h2> </center>
-				<span>Please select a district</span>
-				<div id="districtsDiv">
-					<select>
-						<option>Please select a District</option>
-					</select>
-				</div>
-				<br>
-				<span>Please select a police station</span>
-				<div id="policeStationsDiv">
-					<select>
-						<option>Please select a Police Station</option>
-					</select>
-				</div>
-				<div id="crimeReviewDiv">
+			
+			<h1>This page is under construction</h1>
 				
-				</div>
 		</div><!-- #content -->
 		
 		<div id="footer">
