@@ -25,18 +25,14 @@
 		//Load the classifications of Offence
 		$("#classOfOffenceDiv").load('GetTheClassOfOffence');
 		
-		
 		//Load the police stations on the selection of a district in the change event of the dropdownlist
 		$("#districtsDiv").on("change","#districts", function(e){
 				$districtId = $(this).val();
 		    	$("#policeStationsDiv").load('GetThePoliceStations','districtId=' + $districtId );
 		});
-		
-		
+				
 		$("#policeStationsDiv").on("change","#policeStation",function(e){
-	    	 
 	    	 $policeStationId = $(this).val();
-	    	 alert("you selected something" + $policeStationId);
 	    	 $("#crimeReviewDiv").load('GetTheCrimeReviewCases','policeStationId=' + $policeStationId );
 		});
 		
@@ -45,17 +41,44 @@
 	       	 $("#crimeReviewDiv").load('GetTheCrimeReviewCases','policeStationId=' + $policeStationId );
 		});
 		
-		 
 		$("#crimeReviewDiv").on("submit",".crimeReviewForm",function(e){
-			 $firId = $(this).attr('id');
-	
-			 $spComments = $('#spRemarks').val();
-			 
-			 alert("FIR ID = "+ $firId + "  SP Comments = "+ $spComments);
+			var postData = $(this).serializeArray();
+			$.ajax({
+			    type: "POST",
+			    url: "AddCrimeReview",
+			    data: postData,
+			    success:function(html) 
+	            {
+			    	alert(html);
+	            },
+	            error: function(html) 
+	            {
+	            	alert(html);
+	            }
+			 });
 			 e.preventDefault();
 		});
-});
-	
+		
+		$("#crimeReviewDiv").on("click",".paginationLinks",function(e){
+			var pageNo = $(this).attr('value');
+			var policeStationId =$(this).attr('id');
+			
+			$.ajax({
+			    type: "GET",
+			    url: "GetPaginatedPendingCases?pageNo="+pageNo+"&policeStationId="+policeStationId,
+			    success:function(html) 
+	            {
+			    	alert(html);
+	            },
+	            error: function(html) 
+	            {
+	            	alert(html);
+	            }
+			 });
+			 e.preventDefault();
+			return false;
+		});
+	});
 </script>
 
 </head>
@@ -84,12 +107,23 @@
 		</div><!-- #header -->
 		
 		<div id="mainDiv">
-			
-				Please select a district<div id="districtsDiv"><select name='district'><option>Please select a District<option></option></select></div>
+				<center><h2>Crime Review</h2> </center>
+				<span>Please select a district</span>
+				<div id="districtsDiv">
+					<select>
+						<option>Please select a District</option>
+					</select>
+				</div>
 				<br>
-				Please select a police station<div id="policeStationsDiv"><select><option>Please select a PS<option></select></div>
-				<div id="crimeReviewDiv"></div>
+				<span>Please select a police station</span>
+				<div id="policeStationsDiv">
+					<select>
+						<option>Please select a Police Station</option>
+					</select>
+				</div>
+				<div id="crimeReviewDiv">
 				
+				</div>
 		</div><!-- #content -->
 		
 		<div id="footer">

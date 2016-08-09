@@ -39,7 +39,7 @@
 			$("#addForm").validate();
 			
 			var postData = $("#addForm").serializeArray();
-			//alert (dataString);return false;
+			alert (postData);
 			$.ajax({
 			    type: "POST",
 			    url: "AddFIR",
@@ -77,7 +77,7 @@
             	<li id="home"><a href="index.jsp">HOME</a></li>
 				<li><a href="#">FIR</a>
 					<ul>
-						<li><a href="addFir.jsp" >ADD FIR</a></li>
+						<li><a href="addFIR.jsp" >ADD FIR</a></li>
 						<li><a href="contact.html" >EDIT FIR</a></li>
 						<li><a href="contact.html" >RE-ENDORSE FIR</a></li>
 						<li><a href="contact.html" >DISPOSE FIR</a></li>

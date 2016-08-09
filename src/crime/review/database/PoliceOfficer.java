@@ -8,6 +8,7 @@ public class PoliceOfficer {
 	private String posting;
 	private String dob;
 	private String contact;
+	private int posting_id;
 	
 	public PoliceOfficer() {
 		
@@ -67,6 +68,14 @@ public class PoliceOfficer {
 
 	public void setContact(String contact) {
 		this.contact = contact;
+	}
+	
+	public int getPostingId(){
+		return posting_id;
+	}
+	
+	public void setPostingId(int ps_id){
+		posting_id = ps_id;
 	}
 	
 }

@@ -28,6 +28,7 @@ public class PoliceOfficerQueries {
 			prestatement.setString(4, police_officer.getPosting());
 			prestatement.setString(5, police_officer.getDob());
 			prestatement.setString(6, police_officer.getContact());
+			prestatement.setInt(7, police_officer.getPostingId());
 			prestatement.executeUpdate();
 			prestatement.close();
 			return true;
@@ -41,7 +42,7 @@ public class PoliceOfficerQueries {
 	//UPDATE POLICE OFFICER
 	public boolean update(PoliceOfficer police_officer) {
 		try {
-			String query = "update police_officer set fname=?,mname=?,lname=?,posting=?,dob=?,contact=? where id=?";
+			String query = "update police_officer set fname=?,mname=?,lname=?,posting=?,dob=?,contact=?,posting_id=? where id=?";
 			prestatement = connection.prepareStatement(query);
 			prestatement.setString(1, police_officer.getFname());
 			prestatement.setString(2, police_officer.getMname());
@@ -49,7 +50,8 @@ public class PoliceOfficerQueries {
 			prestatement.setString(4, police_officer.getPosting());
 			prestatement.setString(5, police_officer.getDob());
 			prestatement.setString(6, police_officer.getContact());
-			prestatement.setInt(7, police_officer.getId());
+			prestatement.setInt(7, police_officer.getPostingId());
+			prestatement.setInt(8, police_officer.getId());
 			prestatement.executeUpdate();
 			prestatement.close();
 			return true;
@@ -267,9 +269,9 @@ public class PoliceOfficerQueries {
 				policeOfficer.setFname(resultset.getString("fname"));
 				policeOfficer.setMname(resultset.getString("mname"));
 				policeOfficer.setLname(resultset.getString("lname"));
-				policeOfficer.setPosting(resultset.getString("posting"));
 				policeOfficer.setDob(resultset.getString("dob"));
 				policeOfficer.setContact(resultset.getString("contact"));
+				policeOfficer.setPostingId(resultset.getInt("posting_id"));
 				listOfPoliceOfficers.add(policeOfficer);
 			}
 			prestatement.close();

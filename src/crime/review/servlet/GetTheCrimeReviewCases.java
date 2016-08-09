@@ -34,6 +34,8 @@ public class GetTheCrimeReviewCases extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int pageSize = 5;
+		
 		 //Creating a table using DIV object instead of the table
 		String tblHead = "<div class='table'>"+
 							"<div class='tr'>"+
@@ -52,23 +54,28 @@ public class GetTheCrimeReviewCases extends HttpServlet {
 		List<FIR> listOfPendingFIRs = firq.getPendingFIROfPoliceStation(policeStationId);
 		firq.close();
 		
-		
 		String tblRows="";
 		PoliceOfficerQueries psq = new PoliceOfficerQueries();
 		
-		
-		for(int i = 0; i < listOfPendingFIRs.size() ; i++ ){
+		//Making sure that the no of rows displayed is not more than 5
+		int noOfPendingFIRs = pageSize;
+		if( listOfPendingFIRs.size() < pageSize)
+			noOfPendingFIRs = listOfPendingFIRs.size();
+				
+		for(int i = 0; i < noOfPendingFIRs ; i++ )
+		{
 			FIR fir = listOfPendingFIRs.get(i);
 			PoliceOfficer po = psq.getPoliceOfficer_from_id(fir.getPolice_officer_id());
-			tblRows += "<div class='tr'><form method='post' class='crimeReviewForm' id='"+fir.getFir_id()+"'>";
+			tblRows += "<div class='tr'><form method='post' class='crimeReviewForm'>";
+			tblRows += "<input name='firId' type='hidden' value='"+fir.getFir_id()+"'/>";
 			tblRows	+= "<span class='td'><textarea class='Box' rows='2' cols='2'>"+ (i+1)+"</textarea></span>";
 			tblRows += "<span class='td'><textarea class='Box' rows='2' cols='10'>" + fir.getCase_no()+ "</textarea></span>";
 			tblRows += "<span class='td'><textarea class='Box' rows='2' cols='30'>" + fir.getSection_of_law() + "</textarea></span>";			
 			tblRows += "<span class='td'><textarea class='Box' rows='2' cols='15'>" + po.getFname() + " " + po.getLname() + "</textarea></span>";
-			tblRows += "<span class='td'><textarea id='actionTakenByIO' rows='2' cols='20'></textarea></span>";
-			tblRows += "<span class='td'><textarea id='lastCdWithDate' rows='2' cols='20'></textarea></span>";
-			tblRows += "<span class='td'><textarea id='reasonForPending' rows='2' cols='20'></textarea></span>";
-			tblRows += "<span class='td'><textarea id='spRemarks' rows='2' cols='25'></textarea></span>";
+			tblRows += "<span class='td'><textarea name='actionTakenByIO' rows='2' cols='20'></textarea></span>";
+			tblRows += "<span class='td'><textarea name='lastCdWithDate' rows='2' cols='20'></textarea></span>";
+			tblRows += "<span class='td'><textarea name='reasonForPending' rows='2' cols='20'></textarea></span>";
+			tblRows += "<span class='td'><textarea name='spRemarks' rows='2' cols='25'></textarea></span>";
 			tblRows += "<span class='td'><input type='submit' id='btnUpdate' value='Update Review'/></span></form></div>";
 		}
 		psq.close();
@@ -76,9 +83,16 @@ public class GetTheCrimeReviewCases extends HttpServlet {
 		//creating the complete table containing pending FIRs of Police Stations
 		String tablePS = tblHead + tblRows +"</div>";
 				
-		response.setContentType("text/html");
-		response.getWriter().println(tablePS);
+		String paginationLinks = "<div id='paginationLinksDiv'><table><tbody><tr>";
+		String colOfLinks="";
+		for(int k=1,  c = 0 ; c < listOfPendingFIRs.size(); c+=5, k++)
+		{
+			colOfLinks+= "<td><a id='"+policeStationId+"'class='paginationLinks' href='#' value='"+k+"'>"+k+"</a></td>";
+		}
 		
+		String pLinks= paginationLinks+ colOfLinks + "</tr></tbody></table></div>";	
+		response.setContentType("text/html");
+		response.getWriter().println(tablePS+pLinks);
 	}
 
 	/**
