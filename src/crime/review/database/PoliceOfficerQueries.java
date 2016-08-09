@@ -20,14 +20,15 @@ public class PoliceOfficerQueries {
 	//ADD POLICE OFFICER
 	public boolean add(PoliceOfficer police_officer) {
 		try {
-			String query = "insert into police_officer (fname,mname,lname,posting,dob,contact) values(?,?,?,?,?,?)";
+			String query = "insert into police_officer (fname,mname,lname,posting_id,dob,contact,rank_id) values(?,?,?,?,?,?,?)";
 			prestatement = connection.prepareStatement(query);
 			prestatement.setString(1, police_officer.getFname());
 			prestatement.setString(2, police_officer.getMname());
 			prestatement.setString(3, police_officer.getLname());
-			prestatement.setString(4, police_officer.getPosting());
+			prestatement.setInt(4, police_officer.getPosting());
 			prestatement.setString(5, police_officer.getDob());
 			prestatement.setString(6, police_officer.getContact());
+			prestatement.setInt(7, police_officer.getRank());
 			prestatement.executeUpdate();
 			prestatement.close();
 			return true;
@@ -41,15 +42,16 @@ public class PoliceOfficerQueries {
 	//UPDATE POLICE OFFICER
 	public boolean update(PoliceOfficer police_officer) {
 		try {
-			String query = "update police_officer set fname=?,mname=?,lname=?,posting=?,dob=?,contact=? where id=?";
+			String query = "update police_officer set fname=?,mname=?,lname=?,posting_id=?,dob=?,contact=?,rank_id=? where id=?";
 			prestatement = connection.prepareStatement(query);
 			prestatement.setString(1, police_officer.getFname());
 			prestatement.setString(2, police_officer.getMname());
 			prestatement.setString(3, police_officer.getLname());
-			prestatement.setString(4, police_officer.getPosting());
+			prestatement.setInt(4, police_officer.getPosting());
 			prestatement.setString(5, police_officer.getDob());
 			prestatement.setString(6, police_officer.getContact());
-			prestatement.setInt(7, police_officer.getId());
+			prestatement.setInt(7, police_officer.getRank());
+			prestatement.setInt(8, police_officer.getId());
 			prestatement.executeUpdate();
 			prestatement.close();
 			return true;
@@ -74,9 +76,10 @@ public class PoliceOfficerQueries {
 				police_officer.setFname(resultset.getString("fname"));
 				police_officer.setMname(resultset.getString("mname"));
 				police_officer.setLname(resultset.getString("lname"));
-				police_officer.setPosting(resultset.getString("posting"));
+				police_officer.setPosting(resultset.getInt("posting_id"));
 				police_officer.setDob(resultset.getString("dob"));
 				police_officer.setContact(resultset.getString("contact"));
+				police_officer.setRank(resultset.getInt("rank_id"));
 			}
 			prestatement.close();
 		} catch (Exception e) {
@@ -101,9 +104,10 @@ public class PoliceOfficerQueries {
 				police_officer.setFname(resultset.getString("fname"));
 				police_officer.setMname(resultset.getString("mname"));
 				police_officer.setLname(resultset.getString("lname"));
-				police_officer.setPosting(resultset.getString("posting"));
+				police_officer.setPosting(resultset.getInt("posting_id"));
 				police_officer.setDob(resultset.getString("dob"));
 				police_officer.setContact(resultset.getString("contact"));
+				police_officer.setRank(resultset.getInt("rank_id"));
 				list_police_officer.add(police_officer);
 			}
 			prestatement.close();
@@ -129,9 +133,10 @@ public class PoliceOfficerQueries {
 				police_officer.setFname(resultset.getString("fname"));
 				police_officer.setMname(resultset.getString("mname"));
 				police_officer.setLname(resultset.getString("lname"));
-				police_officer.setPosting(resultset.getString("posting"));
+				police_officer.setPosting(resultset.getInt("posting_id"));
 				police_officer.setDob(resultset.getString("dob"));
 				police_officer.setContact(resultset.getString("contact"));
+				police_officer.setRank(resultset.getInt("rank_id"));
 				list_police_officer.add(police_officer);
 			}
 			prestatement.close();
@@ -157,9 +162,10 @@ public class PoliceOfficerQueries {
 				police_officer.setFname(resultset.getString("fname"));
 				police_officer.setMname(resultset.getString("mname"));
 				police_officer.setLname(resultset.getString("lname"));
-				police_officer.setPosting(resultset.getString("posting"));
+				police_officer.setPosting(resultset.getInt("posting_id"));
 				police_officer.setDob(resultset.getString("dob"));
 				police_officer.setContact(resultset.getString("contact"));
+				police_officer.setRank(resultset.getInt("rank_id"));
 				list_police_officer.add(police_officer);
 			}
 			prestatement.close();
@@ -171,13 +177,13 @@ public class PoliceOfficerQueries {
 	}
 	
 	//GET POLICE OFFICER FROM POSTING
-	public List<PoliceOfficer> getPoliceOfficer_from_posting(String posting){
+	public List<PoliceOfficer> getPoliceOfficer_from_posting(int posting){
 		List<PoliceOfficer> list_police_officer = new ArrayList<PoliceOfficer>();
 		PoliceOfficer police_officer = null;
 		try {
 			String query = "select * from police_officer where posting = ?";
 			prestatement = connection.prepareStatement(query);
-			prestatement.setString(1, posting);
+			prestatement.setInt(1, posting);
 			resultset = prestatement.executeQuery();
 			while(resultset.next()) {
 				police_officer = new PoliceOfficer();
@@ -185,9 +191,10 @@ public class PoliceOfficerQueries {
 				police_officer.setFname(resultset.getString("fname"));
 				police_officer.setMname(resultset.getString("mname"));
 				police_officer.setLname(resultset.getString("lname"));
-				police_officer.setPosting(resultset.getString("posting"));
+				police_officer.setPosting(resultset.getInt("posting_id"));
 				police_officer.setDob(resultset.getString("dob"));
 				police_officer.setContact(resultset.getString("contact"));
+				police_officer.setRank(resultset.getInt("rank_id"));
 				list_police_officer.add(police_officer);
 			}
 			prestatement.close();
@@ -213,9 +220,10 @@ public class PoliceOfficerQueries {
 				police_officer.setFname(resultset.getString("fname"));
 				police_officer.setMname(resultset.getString("mname"));
 				police_officer.setLname(resultset.getString("lname"));
-				police_officer.setPosting(resultset.getString("posting"));
+				police_officer.setPosting(resultset.getInt("posting_id"));
 				police_officer.setDob(resultset.getString("dob"));
 				police_officer.setContact(resultset.getString("contact"));
+				police_officer.setRank(resultset.getInt("rank_id"));
 				list_police_officer.add(police_officer);
 			}
 			prestatement.close();
@@ -241,9 +249,10 @@ public class PoliceOfficerQueries {
 				police_officer.setFname(resultset.getString("fname"));
 				police_officer.setMname(resultset.getString("mname"));
 				police_officer.setLname(resultset.getString("lname"));
-				police_officer.setPosting(resultset.getString("posting"));
+				police_officer.setPosting(resultset.getInt("posting_id"));
 				police_officer.setDob(resultset.getString("dob"));
 				police_officer.setContact(resultset.getString("contact"));
+				police_officer.setRank(resultset.getInt("rank_id"));
 				list_police_officer.add(police_officer);
 			}
 			prestatement.close();
@@ -252,6 +261,34 @@ public class PoliceOfficerQueries {
 			System.err.println(e.getMessage());
 		}
 		return list_police_officer;
+	}
+	
+	public List<PoliceOfficer> getAllPoliceOfficersByRank(int rank_id){
+		List<PoliceOfficer> listOfPoliceOfficers = new ArrayList<PoliceOfficer>();
+		PoliceOfficer policeOfficer = null;
+		try {
+			String query = "select * from police_officer where rank_id=?";
+			prestatement = connection.prepareStatement(query);
+			prestatement.setInt(1, rank_id);
+			resultset = prestatement.executeQuery();
+			while(resultset.next()) {
+				policeOfficer = new PoliceOfficer();
+				policeOfficer.setId(resultset.getInt("id"));
+				policeOfficer.setFname(resultset.getString("fname"));
+				policeOfficer.setMname(resultset.getString("mname"));
+				policeOfficer.setLname(resultset.getString("lname"));
+				policeOfficer.setPosting(resultset.getInt("posting_id"));
+				policeOfficer.setDob(resultset.getString("dob"));
+				policeOfficer.setContact(resultset.getString("contact"));
+				policeOfficer.setRank(resultset.getInt("rank_id"));
+				listOfPoliceOfficers.add(policeOfficer);
+			}
+			prestatement.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+		return listOfPoliceOfficers;
 	}
 	
 	public List<PoliceOfficer> getAllPoliceOfficers(){
@@ -267,9 +304,39 @@ public class PoliceOfficerQueries {
 				policeOfficer.setFname(resultset.getString("fname"));
 				policeOfficer.setMname(resultset.getString("mname"));
 				policeOfficer.setLname(resultset.getString("lname"));
-				policeOfficer.setPosting(resultset.getString("posting"));
+				policeOfficer.setPosting(resultset.getInt("posting_id"));
 				policeOfficer.setDob(resultset.getString("dob"));
 				policeOfficer.setContact(resultset.getString("contact"));
+				policeOfficer.setRank(resultset.getInt("rank_id"));
+				listOfPoliceOfficers.add(policeOfficer);
+			}
+			prestatement.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+		return listOfPoliceOfficers;
+	}
+	
+	//GET POLICE OFFICERS BY DISTRICT
+	public List<PoliceOfficer> getPoliceOfficerByDistrict(int districtId){
+		List<PoliceOfficer> listOfPoliceOfficers = new ArrayList<PoliceOfficer>();
+		PoliceOfficer policeOfficer = null;
+		try {
+			String query = "select * from police_officer where posting_id in (select police_station.id from police_station where district_id = ?)";
+			prestatement = connection.prepareStatement(query);
+			prestatement.setInt(1, districtId);
+			resultset = prestatement.executeQuery();
+			while(resultset.next()) {
+				policeOfficer = new PoliceOfficer();
+				policeOfficer.setId(resultset.getInt("id"));
+				policeOfficer.setFname(resultset.getString("fname"));
+				policeOfficer.setMname(resultset.getString("mname"));
+				policeOfficer.setLname(resultset.getString("lname"));
+				policeOfficer.setPosting(resultset.getInt("posting_id"));
+				policeOfficer.setDob(resultset.getString("dob"));
+				policeOfficer.setContact(resultset.getString("contact"));
+				policeOfficer.setRank(resultset.getInt("rank_id"));
 				listOfPoliceOfficers.add(policeOfficer);
 			}
 			prestatement.close();

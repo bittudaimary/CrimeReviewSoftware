@@ -28,6 +28,12 @@
 				$("#caseNosDiv").load('GetTheCaseNos','policeStationId=' + $policeStationId );
 		});
 		
+		//Load the present police officer and all the police officers of the respective district
+		$("#caseNosDiv").on("change","#caseNo",function(e){
+			$caseNo = $(this).val();
+			$("#policeOfficersDiv").load('GetThePoliceOfficersByDistrict','districtId=' + $districtId);
+		});
+		
 		
 		
 		//Submit the data to the DisposeFIR servlet
@@ -112,14 +118,12 @@
 							<td><div id="caseNosDiv"><select><option>Please select a Case No.</option></select></div></td>
 						</tr>
 						<tr>
-							<td> Date of Dispose</td>
-							<td><input type="date" name="dateOfDispose" required/></td>
+							<td> Date of Endorse</td>
+							<td><input type="date" name="dateOfEndorse" required/></td>
 						</tr>
 						<tr>
-							<td> Type of Final Form </td>
-							<td><input type="radio" name="finalForm" value="true" checked="checked"/>Charge-Sheet
-								<input type="radio" name="finalForm" value="false"/>Final Report
-							</td>
+							<td> New Investigating Officer: </td>
+							<td> <div id="policeOfficersDiv"><select name='policeOfficer'><option>Please select a I/O</option></select></div></td>
 						</tr>
 						<tr>
 							<td><input type="reset" id="btnReset" value="RESET" /></td>

@@ -5,9 +5,10 @@ public class PoliceOfficer {
 	private String fname;
 	private String mname;
 	private String lname;
-	private String posting;
 	private String dob;
 	private String contact;
+	private int posting;
+	private int rank;
 	
 	public PoliceOfficer() {
 		
@@ -45,14 +46,6 @@ public class PoliceOfficer {
 		this.lname = lname;
 	}
 
-	public String getPosting() {
-		return posting;
-	}
-
-	public void setPosting(String posting) {
-		this.posting = posting;
-	}
-
 	public String getDob() {
 		return dob;
 	}
@@ -67,6 +60,22 @@ public class PoliceOfficer {
 
 	public void setContact(String contact) {
 		this.contact = contact;
+	}
+
+	public int getPosting() {
+		return posting;
+	}
+
+	public void setPosting(int posting) {
+		this.posting = posting;
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 	
 }
