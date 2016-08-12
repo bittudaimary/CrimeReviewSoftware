@@ -68,7 +68,7 @@
 			    url: "GetPaginatedPendingCases?pageNo="+pageNo+"&policeStationId="+policeStationId,
 			    success:function(html) 
 	            {
-			    	alert(html);
+			    	$("#crimeReviewDiv").html(html);
 	            },
 	            error: function(html) 
 	            {
@@ -127,7 +127,7 @@
 		</div><!-- #content -->
 		
 		<div id="footer">
-		Copyright © 2016 Bittu & Mahesh Co.
+		<span>Copyright © 2016 Bittu & Mahesh Co.</span>
 		</div><!-- #footer -->
 		
 	</div><!-- #container -->

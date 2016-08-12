@@ -333,6 +333,86 @@ public class FIRQueries {
 		}
 		return list_fir;
 	}
+	
+	// GET ALL PENDING FIRS FIR FROM POLICE STATION ID OF CERTAIN PAGESIZE
+		public List<FIR> getPendingFIROfPoliceStationFirstPage(int pageSize,int police_station_id) {
+			List<FIR> list_fir = new ArrayList<FIR>();
+			FIR newfir = null;
+			try {
+				String query = "select * from fir where police_station_id = ? limit ?";
+				prestatement = connection.prepareStatement(query);
+				prestatement.setInt(1, police_station_id);
+				prestatement.setInt(2, pageSize);
+				
+				resultset = prestatement.executeQuery();
+				while (resultset.next()) {
+					newfir = new FIR();
+					newfir.setFir_id(resultset.getInt("fir_id"));
+					newfir.setCase_no(resultset.getString("case_no"));
+					newfir.setSection_of_law(resultset.getString("section_of_law"));
+					newfir.setDate_of_registration(resultset
+							.getString("date_of_registration"));
+					newfir.setDate_of_occurrence(resultset
+							.getString("date_of_occurence"));
+					newfir.setPolice_officer_id(resultset
+							.getInt("police_officer_id"));
+					newfir.setPolice_station_id(resultset
+							.getInt("police_station_id"));
+					newfir.setPlace_of_occurence(resultset
+							.getString("place_of_occurence"));
+					newfir.setMajor_head_id(resultset.getInt("major_head_id"));
+					newfir.setMinor_head_id(resultset.getInt("minor_head_id"));
+					newfir.setSr_or_nonsr(resultset.getBoolean("sr_or_nonsr"));
+					newfir.setClass_of_offence(resultset.getInt("class_of_offence"));
+					list_fir.add(newfir);
+				}
+				prestatement.close();
+			} catch (Exception e) {
+				System.err.println("Got an exception! ");
+				System.err.println(e.getMessage());
+			}
+			return list_fir;
+		}
+	 
+	// GET ALL PENDING FIRS FIR FROM POLICE STATION ID OF CERTAIN PAGESIZE AND OFFSET
+	public List<FIR> getPaginatedListOfPendingFIRs(int pageSize, int offset,int police_station_id) {
+		List<FIR> list_fir = new ArrayList<FIR>();
+		FIR newfir = null;
+		try {
+			String query = "select * from fir where police_station_id = ? limit ? offset ?";
+			prestatement = connection.prepareStatement(query);
+			prestatement.setInt(1, police_station_id);
+			prestatement.setInt(2, pageSize);
+			prestatement.setInt(3, offset);
+			resultset = prestatement.executeQuery();
+			while (resultset.next()) {
+				newfir = new FIR();
+				newfir.setFir_id(resultset.getInt("fir_id"));
+				newfir.setCase_no(resultset.getString("case_no"));
+				newfir.setSection_of_law(resultset.getString("section_of_law"));
+				newfir.setDate_of_registration(resultset
+						.getString("date_of_registration"));
+				newfir.setDate_of_occurrence(resultset
+						.getString("date_of_occurence"));
+				newfir.setPolice_officer_id(resultset
+						.getInt("police_officer_id"));
+				newfir.setPolice_station_id(resultset
+						.getInt("police_station_id"));
+				newfir.setPlace_of_occurence(resultset
+						.getString("place_of_occurence"));
+				newfir.setMajor_head_id(resultset.getInt("major_head_id"));
+				newfir.setMinor_head_id(resultset.getInt("minor_head_id"));
+				newfir.setSr_or_nonsr(resultset.getBoolean("sr_or_nonsr"));
+				newfir.setClass_of_offence(resultset.getInt("class_of_offence"));
+				list_fir.add(newfir);
+			}
+			prestatement.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+		return list_fir;
+	}
 
 	// GET FIR FROM PLACE OF OCCURENCE
 	List<FIR> getFir_from_place_of_occurence(String place_of_occurence) {

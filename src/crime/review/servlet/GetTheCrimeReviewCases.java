@@ -51,7 +51,8 @@ public class GetTheCrimeReviewCases extends HttpServlet {
 		
 		int policeStationId = Integer.parseInt(request.getParameter("policeStationId"));
 		FIRQueries firq = new FIRQueries();
-		List<FIR> listOfPendingFIRs = firq.getPendingFIROfPoliceStation(policeStationId);
+		List<FIR> listOfPendingFIRs = firq.getPendingFIROfPoliceStationFirstPage(pageSize,policeStationId);
+		int totalNoOfCases =  firq.get_count_of_pending_fir_from_ps(policeStationId);	
 		firq.close();
 		
 		String tblRows="";
@@ -85,7 +86,9 @@ public class GetTheCrimeReviewCases extends HttpServlet {
 				
 		String paginationLinks = "<div id='paginationLinksDiv'><table><tbody><tr>";
 		String colOfLinks="";
-		for(int k=1,  c = 0 ; c < listOfPendingFIRs.size(); c+=5, k++)
+		
+		
+		for(int k=1,  c = 0 ; c < totalNoOfCases; c+=5, k++)
 		{
 			colOfLinks+= "<td><a id='"+policeStationId+"'class='paginationLinks' href='#' value='"+k+"'>"+k+"</a></td>";
 		}
